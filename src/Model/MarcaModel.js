@@ -13,7 +13,7 @@ const getMarcaById = async (idMarca) => {
 
 const createNewMarca = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.beginTransaction.query(`INSERT INTO marcas (nombre) VALUES ('${data.nombre}')`);
+    const result = await connection.query(`INSERT INTO marcas (nombre) VALUES ('${data.nombre}')`);
     return result;
 }
 
