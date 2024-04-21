@@ -1,4 +1,7 @@
 const express = require('express');
+const path = require("path");
+const cors = require('cors');
+
 const usuarioRolesRouter = require("./routes/usuarioRolesRoutes");
 const usuarioRouter = require("./routes/UsuarioRoutes");
 const aseguradoraRouter = require("./routes/AseguradoraRoutes");
@@ -7,7 +10,6 @@ const aseguradoRouter = require("./routes/AseguradoRoutes");
 const marcaRouter = require("./routes/MarcaRoutes");
 const ModeloRouter = require("./routes/ModeloRoutes");
 
-const path = require("path");
 //Swagger
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -35,6 +37,9 @@ app.listen(4000, () => {
 
 
 //Middlewares
+app.use(cors({
+    origin: ["http://127.0.0.1:4200"]
+}));
 app.use(express.json());
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
 
