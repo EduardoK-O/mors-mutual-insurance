@@ -38,7 +38,7 @@ app.listen(4000, () => {
 
 //Middlewares
 app.use(cors({
-    origin: ["http://127.0.0.1:4200"]
+    origin: ["http://127.0.0.1:4200", "http://127.0.0.1:4000"]
 }));
 app.use(express.json());
 app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
