@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `usuario_roles` (
 DROP TABLE IF EXISTS `vehiculos`;
 CREATE TABLE IF NOT EXISTS `vehiculos` (
   `idVehiculo` int(11) NOT NULL AUTO_INCREMENT,
-  `Año` varchar(4) DEFAULT NULL,
+  `anio` varchar(4) DEFAULT NULL,
   `num_serie` varchar(45) DEFAULT NULL,
   `idModelo` int(11) NOT NULL,
   PRIMARY KEY (`idVehiculo`),

@@ -11,7 +11,7 @@ const ModeloController = require('../controller/ModeloController');
  *          properties:
  *              idModelo:
  *                  type: integer
- *                  description: id del usuario
+ *                  description: id del modelo
  *              nombre:
  *                  type: string
  *                  description: nombre del modelo de automovil
@@ -20,7 +20,7 @@ const ModeloController = require('../controller/ModeloController');
  *                  description: id de referencia de la marca
  *              activo:
  *                  type: integer
- *                  description: indica si el registro del usuario se encuentra activo
+ *                  description: indica si el registro del modelo se encuentra activo
  *          required:
  *              - nombre
  *              - idMarca

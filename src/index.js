@@ -9,6 +9,9 @@ const conceptoRouter = require("./routes/ConceptoRoutes");
 const aseguradoRouter = require("./routes/AseguradoRoutes");
 const marcaRouter = require("./routes/MarcaRoutes");
 const ModeloRouter = require("./routes/ModeloRoutes");
+const VehiculoRouter = require("./routes/VehiculoRoutes");
+const SeguroRoutes = require('./routes/SeguroRoutes');
+const CotizacionRoutes = require('./routes/CotizacionRoutes');
 
 //Swagger
 const swaggerUI = require('swagger-ui-express');
@@ -51,3 +54,6 @@ app.use("/api/conceptos", conceptoRouter);
 app.use("/api/asegurados", aseguradoRouter);
 app.use("/api/marcas", marcaRouter);
 app.use("/api/modelos", ModeloRouter);
+app.use("/api/vehiculos", VehiculoRouter);
+app.use("/api/seguros", SeguroRoutes);
+app.use("/api/cotizaciones", CotizacionRoutes);

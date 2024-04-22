@@ -9,11 +9,12 @@ const getAllModelos = async () => {
 const getModeloById = async (idModelo) => {
     const connection = await database.getConnection();
     const result = await connection.query(`SELECT * FROM modelos WHERE idModelo = ${idModelo}`);
+    return result;
 }
 
 const createNewModelo = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.beginTransaction.query(`INSERT INTO modelos (nombre, idMarca) VALUES ('${data.nombre}', ${data.idMarca})`);
+    const result = await connection.query(`INSERT INTO modelos (nombre, idMarca) VALUES ('${data.nombre}', ${data.idMarca})`);
     return result;
 }
 
@@ -23,16 +24,9 @@ const updateModelo = async (data) => {
     return result;
 }
 
-const deleteModelo = async (idModelo) => {
-    const connection = await database.getConnection();
-    const result = await connection.query(`UPDATE modelos SET activo = 0 WHERE idModelo = ${idModelo}`);
-    return result;
-}
-
 module.exports = {
     getAllModelos,
     getModeloById,
     createNewModelo,
-    updateModelo,
-    deleteModelo
+    updateModelo
 }
