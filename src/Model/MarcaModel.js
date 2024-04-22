@@ -9,6 +9,7 @@ const getAllMarcas = async () => {
 const getMarcaById = async (idMarca) => {
     const connection = await database.getConnection();
     const result = await connection.query(`SELECT * FROM marcas WHERE idMarca = ${idMarca}`);
+    return result;
 }
 
 const createNewMarca = async (data) => {
