@@ -40,6 +40,7 @@ export class MarcaFormComponent implements OnInit{
     //console.log(marcaForm);
 
     if(this.marca_auto){
+      marcaForm.activo = 1;
       this.marcaServices.put(this.marca_auto.idMarca, marcaForm).subscribe(() =>{
         this.router.navigate(['/marcas']);
       });

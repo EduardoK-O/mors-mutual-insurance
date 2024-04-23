@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ModelosComponent } from './modelos/modelos.component';
 import { MarcasComponent } from './marcas/marcas.component';
 import { MarcaFormComponent } from './marca-form/marca-form.component';
 import { ModeloFormComponent } from './modelo-form/modelo-form.component';
