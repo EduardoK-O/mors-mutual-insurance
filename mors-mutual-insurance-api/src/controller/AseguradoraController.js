@@ -50,7 +50,7 @@ const updateAseguradora = async (req, res) => {
 }
 
 const deleteAseguradora = async (req, res) => {
-    const deletedAseguradora = await AseguradoraService.deleteAseguradora();
+    const deletedAseguradora = await AseguradoraService.deleteAseguradora(req.params.idAseguradora);
     res.status(200).send({status: "OK", data: deletedAseguradora});
 }
 

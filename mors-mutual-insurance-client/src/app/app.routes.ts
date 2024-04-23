@@ -5,6 +5,8 @@ import { ModeloFormComponent } from './modelo-form/modelo-form.component';
 import { ModeloComponent } from './modelo/modelo.component';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { VehiculoFormComponent } from './vehiculo-form/vehiculo-form.component';
+import { AseguradorasComponent } from './aseguradoras/aseguradoras.component';
+import { AseguradorasFormComponent } from './aseguradoras-form/aseguradoras-form.component';
 
 export const routes: Routes = [
     {path: 'marcas', component: MarcasComponent},
@@ -16,4 +18,7 @@ export const routes: Routes = [
     {path: 'vehiculos', component: VehiculosComponent},
     {path: 'add-vehiculo', component: VehiculoFormComponent},
     {path: 'edit-vehiculo/:id', component: VehiculoFormComponent},
+    {path: 'aseguradoras', component: AseguradorasComponent},
+    {path: 'add-aseguradora', component: AseguradorasFormComponent},
+    {path: 'edit-aseguradora/:id', component: AseguradorasFormComponent},
 ];

@@ -1,0 +1,62 @@
+
+
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos de la marca</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input class="form-control" id="nombre" type="text" placeholder="Nombre de la aseguradora" formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="razon_social">Razón</label>
+                        <input class="form-control" id="razon_social" type="text" placeholder="Razón social de la aseguradora" formControlName="razon_social">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="contacto">Contacto</label>
+                        <input class="form-control" id="contacto" type="text" placeholder="Contacto de la aseguradora" formControlName="contacto">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="correo">Correo</label>
+                        <input class="form-control" id="correo" type="text" placeholder="Correo de la aseguradora" formControlName="correo">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="telefono">Teléfono</label>
+                        <input class="form-control" id="telefono" type="text" placeholder="telefono de la aseguradora" formControlName="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="ext">Ext</label>
+                        <input class="form-control" id="ext" type="text" placeholder="Extención del teléfono de la aseguradora" formControlName="ext">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="celular">Celular</label>
+                        <input class="form-control" id="celular" type="text" placeholder="Celular de la aseguradora" formControlName="celular">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="activo">Activo</label>
+                        <input class="form-control" id="activo" type="text" placeholder="La aseguradora está activa o no? (1 si 0 no)" formControlName="activo">
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/aseguradoras">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(aseguradora){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+}

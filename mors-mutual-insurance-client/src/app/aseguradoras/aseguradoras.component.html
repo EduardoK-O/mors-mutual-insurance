@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Aseguradoras</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-aseguradora">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Ext</th>
+                <th>Celular</th>
+                <th>Acciones</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(aseguradora of aseguradoras; track aseguradora.idAseguradora){
+                <tr>
+                    <td>{{ aseguradora.nombre}}</td>
+                    <td>{{ aseguradora.correo }}</td>
+                    <td>{{ aseguradora.telefono }}</td>
+                    <td>{{ aseguradora.ext }}</td>
+                    <td>{{ aseguradora.celular }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-aseguradora', aseguradora.idAseguradora]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteAseguradora(aseguradora.idAseguradora)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                        <button (click)="activarAseguradora(aseguradora)" class="btn btn-success"><fa-icon [icon]="faUpLong"></fa-icon></button>
+                    </td>
+                    <td>
+                        @if( aseguradora.activo ){
+                            Activo <fa-icon [icon]="check"></fa-icon>
+                        }
+                        @else{
+                            No activo <fa-icon [icon]="circleX"></fa-icon>
+                        }
+                    </td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
