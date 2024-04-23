@@ -1,0 +1,34 @@
+
+
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos de la marca</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input class="form-control" id="nombre" type="text" placeholder="Nombre de la marca" formControlName="nombre">
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/marcas">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(marca_auto){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+}

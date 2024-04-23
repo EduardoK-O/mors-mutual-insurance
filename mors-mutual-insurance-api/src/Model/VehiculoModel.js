@@ -15,7 +15,8 @@ const getVehiculoById = async (idVehiculo) => {
     FROM vehiculos v 
     LEFT JOIN modelos mo ON mo.idModelo = v.idModelo
     LEFT JOIN marcas ma ON ma.idMarca = mo.idMarca
-    WHERE v.idVehiculo = = ${idVehiculo}`);
+    WHERE v.idVehiculo = ${idVehiculo}`);
+    return result;
 }
 
 const createNewVehiculo = async (data) => {
@@ -27,7 +28,7 @@ const createNewVehiculo = async (data) => {
 
 const updateVehiculo = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`UPDATE vehiculos SET nombre = '${data.nombre}', idMarca = ${data.idMarca} WHERE idVehiculo = ${data.idVehiculo}`);
+    const result = await connection.query(`UPDATE vehiculos SET anio = '${data.anio}', num_serie = '${data.num_serie}', idModelo = '${data.idModelo}' WHERE idVehiculo = ${data.idVehiculo}`);
     return result;
 }
 

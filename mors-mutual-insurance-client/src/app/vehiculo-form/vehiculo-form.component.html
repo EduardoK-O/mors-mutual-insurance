@@ -1,0 +1,47 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos del vehículo</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="anio">Año</label>
+                        <input class="form-control" id="anio" type="text" placeholder="Año del vehículo" formControlName="anio">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="serie">No. Serie</label>
+                        <input class="form-control" id="serie" type="text" placeholder="Número de serie del vehículo" formControlName="num_serie">
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Seleccione modelo</mat-label>
+                            <mat-select formControlName="idModelo">
+                                @for (modelo of modelos; track modelo.idModelo) {
+                                    @if(modelo.activo != 0){
+                                    <mat-option [value]="modelo.idModelo">{{modelo.nombre}}</mat-option>
+                                }
+                              }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/vehiculos">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(vehiculo){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

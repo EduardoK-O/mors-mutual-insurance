@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Modelos de autos</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-modelo">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Marca ID</th>
+                <th>Acciones</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(modelo of modelos; track modelo.idModelo){
+                <tr>
+                    <td>{{ modelo.idModelo}}</td>
+                    <td>{{ modelo.nombre }}</td>
+                    <td>{{ modelo.idMarca }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-modelo', modelo.idModelo]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteModelo(modelo)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                    <td>
+                        @if( modelo.activo ){
+                            Activo <fa-icon [icon]="check"></fa-icon>
+                        }
+                        @else{
+                            No activo <fa-icon [icon]="circleX"></fa-icon>
+                        }
+                    </td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

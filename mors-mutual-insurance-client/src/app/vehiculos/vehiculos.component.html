@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Vehículos</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-vehiculo">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Año</th>
+                <th>No. Serie</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(vehiculo of vehiculos; track vehiculo.idVehiculo){
+                <tr>
+                    <td>{{ vehiculo.modelo }}</td>
+                    <td>{{ vehiculo.marca }}</td>
+                    <td>{{ vehiculo.anio }}</td>
+                    <td>{{ vehiculo.num_serie }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-vehiculo', vehiculo.idVehiculo]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteVehiculo(vehiculo)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

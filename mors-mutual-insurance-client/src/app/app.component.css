@@ -1,0 +1,24 @@
+#video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    background-size: cover;
+  }
+  
+  /* Ocultar los controles del reproductor */
+  #video-background::-webkit-media-controls {
+    display: none;
+  }
+  
+  #video-background::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+  
+  #video-background::-webkit-media-controls-panel {
+    display: none !important;
+  }

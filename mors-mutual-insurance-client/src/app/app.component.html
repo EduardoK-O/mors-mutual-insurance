@@ -1,0 +1,13 @@
+<app-navbar></app-navbar>
+
+@if(isHomeRoute()){
+    <ng-container>
+        <video autoplay muted loop id="video-background">
+            <source src="../assets/MorsMutualInsuranceCall.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+        </video>
+    </ng-container>
+}
+
+
+<router-outlet />

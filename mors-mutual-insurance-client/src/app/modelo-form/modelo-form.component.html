@@ -1,0 +1,44 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos de la marca</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input class="form-control" id="nombre" type="text" placeholder="Nombre del modelo" formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Marca del modelo</mat-label>
+                            <mat-select formControlName="idMarca">
+                                @for (marca of marcas; track marca.idMarca) {
+                                    @if(marca.activo != 0){
+                                    <mat-option [value]="marca.idMarca">{{marca.nombre}}</mat-option>
+                                }
+                              }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/modelos">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(modelo_auto){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+}

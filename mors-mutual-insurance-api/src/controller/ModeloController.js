@@ -16,7 +16,8 @@ const createNewModelo = async (req, res) => {
         return;
     }
     const newModelo = {
-        nombre: body.nombre
+        nombre: body.nombre,
+        idMarca: body.idMarca
     }
     const createdModelo = await ModeloService.createNewModelo(newModelo);
     res.status(201).send({status: "OK", data: createdModelo})
@@ -29,7 +30,8 @@ const updateModelo = async (req, res) => {
     }
     const newModelo = {
         idModelo: req.params.idModelo,
-        nombre: body.nombre
+        nombre: body.nombre,
+        idMarca: body.idMarca
     }
     const updatedModelo = await ModeloService.updateModelo(newModelo);
     res.status(200).send({status: "OK", data: updatedModelo});

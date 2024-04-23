@@ -29,7 +29,8 @@ const updateMarca = async (req, res) => {
     }
     const newMarca = {
         idMarca: req.params.idMarca,
-        nombre: body.nombre
+        nombre: body.nombre,
+        activo: body.activo
     }
     const updatedMarca = await MarcaService.updateMarca(newMarca);
     res.status(200).send({status: "OK", data: updatedMarca});

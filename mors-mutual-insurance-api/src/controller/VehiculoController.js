@@ -18,7 +18,8 @@ const createNewVehiculo = async (req, res) => {
     const newVehiculo = {
         nombre: body.nombre,
         num_serie: body.num_serie,
-        idModelo: body.idModelo
+        idModelo: body.idModelo,
+        anio: body.anio
     }
     const createdVehiculo = await VehiculoService.createNewVehiculo(newVehiculo);
     res.status(201).send({status: "OK", data: createdVehiculo})
@@ -31,7 +32,7 @@ const updateVehiculo = async (req, res) => {
     }
     const newVehiculo = {
         idVehiculo: req.params.idVehiculo,
-        nombre: body.nombre,
+        anio: body.anio,
         num_serie: body.num_serie,
         idModelo: body.idModelo
     }

@@ -20,7 +20,7 @@ const createNewMarca = async (data) => {
 
 const updateMarca = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`UPDATE marcas SET nombre = '${data.nombre}' WHERE idMarca = ${data.idMarca}`);
+    const result = await connection.query(`UPDATE marcas SET nombre = '${data.nombre}', activo = '${data.activo}' WHERE idMarca = ${data.idMarca}`);
     return result;
 }
 
