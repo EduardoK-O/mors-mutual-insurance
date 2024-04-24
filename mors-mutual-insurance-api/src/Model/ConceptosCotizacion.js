@@ -15,21 +15,21 @@ const getConceptosByCotizacionId = async (idCotizacion) => {
     return result;
 }
 
-const createNewConcepto = async (data) => {
+const createNewConceptoCotizacion = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`INSERT INTO conceptos_has_cotizaciones (nombre, idMarca) VALUES ('${data.nombre}', ${data.idMarca})`);
+    const result = await connection.query(`INSERT INTO conceptos_has_cotizaciones (idConcepto, idCotizacion) VALUES ('${data.idConcepto}', ${data.idCotizacion})`);
     return result;
 }
 
-const updateConcepto = async (data) => {
+const updateConceptoCotizacion = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`UPDATE conceptos_has_cotizaciones SET nombre = '${data.nombre}', idMarca = ${data.idMarca} WHERE idConcepto = ${data.idConcepto}`);
+    const result = await connection.query(`UPDATE conceptos_has_cotizaciones SET idConcepto = '${data.idConcepto}', idCotizacion = ${data.idCotizacion} WHERE idConcepto = ${data.idConcepto}`);
     return result;
 }
 
 module.exports = {
     getAllConceptos,
     getConceptosByCotizacionId,
-    createNewConcepto,
-    updateConcepto
+    createNewConceptoCotizacion,
+    updateConceptoCotizacion
 }
