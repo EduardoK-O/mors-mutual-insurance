@@ -1,0 +1,43 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos del contratante (asegurado)</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="nombre">Nombre</label>
+                        <input class="form-control" id="nombre" type="text" placeholder="Nombre del contratante" formControlName="nombre">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha_nacimiento">Fecha de nacimiento</label>
+                        <input class="form-control" id="fecha_nacimiento" type="text" placeholder="Fecha de nacimiento del contratante" formControlName="fecha_nacimiento">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="direccion">Dirección</label>
+                        <input class="form-control" id="direccion" type="text" placeholder="Dirección del contratante" formControlName="direccion">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="correo">Correo</label>
+                        <input class="form-control" id="correo" type="text" placeholder="Correo de del contratante" formControlName="correo">
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/aseguradoras">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(asegurado){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

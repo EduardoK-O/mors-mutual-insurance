@@ -15,7 +15,7 @@ const getAseguradoById = async (idAsegurado) => {
 const createNewAsegurado = async (data) => {
     const connection = await database.getConnection();
     const result = await connection.query(`INSERT INTO asegurados (nombre, fecha_nacimiento, direccion, 
-        correo) VALUES ('${data.nombre}', ${data.fecha_nacimiento}, '${data.direccion}', '${data.correo}')`);
+        correo) VALUES ('${data.nombre}', '${data.fecha_nacimiento}', '${data.direccion}', '${data.correo}')`);
     return result;
 }
 

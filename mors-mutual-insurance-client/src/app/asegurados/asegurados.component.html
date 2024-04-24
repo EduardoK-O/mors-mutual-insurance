@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Asegurados</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-asegurado">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Telefono</th>
+                <th>Ext</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(asegurado of asegurados; track asegurado.idAsegurado){
+                <tr>
+                    <td>{{ asegurado.nombre}}</td>
+                    <td>{{ asegurado.fecha_nacimiento }}</td>
+                    <td>{{ asegurado.direccion }}</td>
+                    <td>{{ asegurado.correo }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-asegurado', asegurado.idAsegurado]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteAsegurado(asegurado.idAsegurado)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
