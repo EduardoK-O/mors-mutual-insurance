@@ -186,6 +186,10 @@ router.get("/", CotizacionController.getAllCotizaciones)
  *          200:
  *              description: cotizacion actualizado!
  */
-.put("/:idCotizacion", CotizacionController.updateCotizacion);
+.put("/:idCotizacion", CotizacionController.updateCotizacion)
+
+//.post("/sendmail", CotizacionController.sendMail)
+
+//.post ("/pdf", CotizacionController.cotizarPDF);
 
 module.exports = router;

@@ -9,6 +9,9 @@ const getAllAsegurados = async () => {
 const getAseguradoById = async (idAsegurado) => {
     const connection = await database.getConnection();
     const result = await connection.query(`SELECT * FROM asegurados WHERE idAsegurado = ${idAsegurado}`);
+    result[0].fecha_nacimiento = result[0].fecha_nacimiento.getFullYear() + '-' +
+    ("0" + (result[0].fecha_nacimiento.getMonth() + 1)).slice(-2) + '-' +
+    ("0" + result[0].fecha_nacimiento.getDate()).slice(-2);
     return result;
 }
 

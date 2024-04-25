@@ -1,28 +1,28 @@
-const ConceptoModel = require('../Model/ConceptoModel');
+const ConceptosCotizacionMod = require('../Model/ConceptosCotizacion');
 
 const getAllConceptos = async () => {
-    const allConceptos = await ConceptoModel.getAllConceptos();
+    const allConceptos = await ConceptosCotizacionMod.getAllConceptos();
     return allConceptos;
 }
 
 const getConceptosByCotizacionId = async (idCotizacion) => {
-    const conceptos = await ConceptoModel.getConceptoById(idCotizacion);
+    const conceptos = await ConceptosCotizacionMod.getConceptoById(idCotizacion);
     return conceptos;
 }
 
-const createNewConcepto = async (newConcepto) => {
-    const createdConcepto = await ConceptoModel.createNewConcepto(newConcepto);
+const createNewConceptoCotizacion = async (newConcepto) => {
+    const createdConcepto = await ConceptosCotizacionMod.createNewConceptoCotizacion(newConcepto);
     return createdConcepto;
 }
 
-const updateConcepto = async (Concepto) => {
-    const updatedConcepto = await ConceptoModel.updateConcepto(Concepto);
+const updateConceptoCotizacion = async (Concepto) => {
+    const updatedConcepto = await ConceptosCotizacionMod.updateConceptoCotizacion(Concepto);
     return updatedConcepto;
 }
 
 module.exports = {
     getAllConceptos,
     getConceptosByCotizacionId,
-    createNewConcepto,
-    updateConcepto
+    createNewConceptoCotizacion,
+    updateConceptoCotizacion
 }
