@@ -1,0 +1,35 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos del concepto</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="descripcion">Descripción</label>
+                        <input class="form-control" id="descripcion" type="text" placeholder="Descripción del concepto" formControlName="descripcion">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="precio">Precio</label>
+                        <input class="form-control" id="precio" type="text" placeholder="Precio del concepto" formControlName="precio">
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/conceptos">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(concepto){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

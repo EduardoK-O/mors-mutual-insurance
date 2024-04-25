@@ -22,7 +22,7 @@ const createNewAsegurado = async (data) => {
 const updateAsegurado = async (data) => {
     const connection = await database.getConnection();
     const  result = await connection.query(`UPDATE asegurados SET nombre = '${data.nombre}', 
-        fecha_nacimiento = ${data.fecha_nacimiento}, direccion = '${data.direccion}',
+        fecha_nacimiento = '${data.fecha_nacimiento}', direccion = '${data.direccion}',
         correo = '${data.correo}' WHERE idAsegurado = ${data.idAsegurado}`);
     return result;
 }

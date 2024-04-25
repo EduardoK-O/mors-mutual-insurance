@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Conceptos</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-concepto">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(concepto of conceptos; track concepto.idConcepto){
+                @if(concepto.activo){
+                    <tr>
+                        <td>{{ concepto.descripcion}}</td>
+                        <td>{{ concepto.precio }}</td>
+                        <td>
+                            <button [routerLink]="['/edit-concepto', concepto.idConcepto]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                            <button (click)="deleteConcepto(concepto.idConcepto)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                            <button (click)="activarConcepto(concepto)" class="btn btn-success"><fa-icon [icon]="faUpLong"></fa-icon></button>
+                        </td>
+                        <td>
+                            @if( concepto.activo ){
+                                Activo <fa-icon [icon]="check"></fa-icon>
+                            }
+                            @else{
+                                No activo <fa-icon [icon]="circleX"></fa-icon>
+                            }
+                        </td> 
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

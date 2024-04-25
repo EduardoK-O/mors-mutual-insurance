@@ -39,7 +39,7 @@ const updateConcepto = async (req, res) => {
 }
 
 const deleteConcepto = async (req, res) => {
-    const deletedConcepto = await ConceptoService.deleteConcepto();
+    const deletedConcepto = await ConceptoService.deleteConcepto(req.params.idConcepto);
     res.status(200).send({status: "OK", data: deletedConcepto});
 }
 

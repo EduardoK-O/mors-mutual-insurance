@@ -14,8 +14,8 @@ const getConceptoById = async (idConcepto) => {
 
 const createNewConcepto = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`INSERT INTO conceptos (descripcion, precio, activo)
-        VALUES ('${data.descripcion}', ${data.precio}, ${data.activo})`);
+    const result = await connection.query(`INSERT INTO conceptos (descripcion, precio)
+        VALUES ('${data.descripcion}', ${data.precio})`);
     return result;
 }
 
