@@ -1,5 +1,6 @@
 const CotizacionService = require('../services/CotizacionService');
 const ConceptosCotizacionServ = require('../services/ConceptosCotizacionService');
+const ConceptosCotizacion = require('../Model/ConceptosCotizacion');
 const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit-construct');
 
@@ -28,8 +29,8 @@ const getAllCotizaciones = async (req, res) => {
 
 const getCotizacionById = async (req, res) => {
     const Cotizacion = await CotizacionService.getCotizacionById(req.params.idCotizacion);
-    const conceptos = await ConceptosCotizacion.getConceptosByCotizacionId(cotizacion.idCotizacion);
-    Cotizacion.conceptos = conceptos;
+    const conceptos = await ConceptosCotizacion.getConceptosByCotizacionId(Cotizacion[0].idCotizacion);
+    Cotizacion[0].conceptos = conceptos;
     res.status(200).send(Cotizacion);
 }
 
@@ -67,7 +68,7 @@ const createNewCotizacion = async (req, res) => {
 
 const updateCotizacion = async (req, res) => {
     const { body } = req;
-    if(!body.fecha || !body.total || !body.idAsegurado || !body.idVehiculo || !body.idAsguradora ||
+    if(!body.fecha || !body.total || !body.idAsegurado || !body.idVehiculo || !body.idAseguradora ||
         !body.prima_neta || !body.descuento || !body.prima_modulos || !body.recargo_fraccionamiento
         || !body.reduccion_autorizada || !body.derecho_poliza || !body.iva ){
     return;
@@ -78,7 +79,7 @@ const newCotizacion = {
     total: body.total,
     idAsegurado: body.idAsegurado,
     idVehiculo: body.idVehiculo,
-    idAsguradora: body.idAsguradora,
+    idAseguradora: body.idAseguradora,
     prima_neta: body.prima_neta,
     descuento: body.descuento,
     prima_modulos: body.prima_modulos,

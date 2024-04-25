@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Cotizaciones</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-cotizacion">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Asegurado</th>
+                <th>Id Vehículo</th>
+                <th>Fecha</th>
+                <th>Conceptos</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(cotizacion of cotizaciones; track cotizacion.idCotizacion){
+                <tr>
+                    <td>{{ cotizacion.nombre_asegurado}}</td>
+                    <td>{{ cotizacion.idVehiculo }}</td>
+                    <td>{{ cotizacion.fecha }}</td>
+                    <td>
+                        <ul>
+                            @for(concepto of cotizacion.conceptos; track concepto.idConcepto){
+                                <li>{{ concepto.descripcion }}</li>
+                            }           
+                        </ul>    
+                    </td>
+                    <td>{{ cotizacion.total }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-cotizacion', cotizacion.idCotizacion]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteCotizacion(cotizacion.idCotizacion)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

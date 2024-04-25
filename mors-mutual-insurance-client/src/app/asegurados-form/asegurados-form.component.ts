@@ -40,7 +40,6 @@ export class AseguradosFormComponent {
 
   save(){
     const aseguradoForm = this.form!.value;
-    //console.log(aseguradoForm);
 
     if(this.asegurado){
       aseguradoForm.activo = 1;
@@ -57,9 +56,7 @@ export class AseguradosFormComponent {
   }
 
   get(){
-    //const asegurado: Asegurado[] = [];
     this.aseguradosService.get(this.idAsegurado).subscribe(asegurado => {
-      //console.log(asegurado);
       this.asegurado = asegurado[0];
       this.form = this.fb.group({
         idAsegurado:[this.asegurado.idAsegurado, [Validators.required]],

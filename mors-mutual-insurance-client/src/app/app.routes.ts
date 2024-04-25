@@ -11,6 +11,8 @@ import { AseguradosComponent } from './asegurados/asegurados.component';
 import { AseguradosFormComponent } from './asegurados-form/asegurados-form.component';
 import { ConceptosComponent } from './conceptos/conceptos.component';
 import { ConceptosFormComponent } from './conceptos-form/conceptos-form.component';
+import { CotizacionesComponent } from './cotizaciones/cotizaciones.component';
+import { CotizacionFormComponent } from './cotizacion-form/cotizacion-form.component';
 
 export const routes: Routes = [
     {path: 'marcas', component: MarcasComponent},
@@ -31,4 +33,7 @@ export const routes: Routes = [
     {path: 'conceptos', component: ConceptosComponent},
     {path: 'add-concepto', component: ConceptosFormComponent},
     {path: 'edit-concepto/:id', component: ConceptosFormComponent},
+    {path: 'cotizaciones', component: CotizacionesComponent},
+    {path: 'add-cotizacion', component: CotizacionFormComponent},
+    {path: 'edit-cotizacion/:id', component: CotizacionFormComponent},
 ];

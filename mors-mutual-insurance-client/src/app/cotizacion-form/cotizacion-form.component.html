@@ -1,0 +1,105 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos de la cotización</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha">Fecha</label>
+                        <input class="form-control" id="fecha" type="date" placeholder="Fecha de la cotización" formControlName="fecha">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="total">Total</label>
+                        <input class="form-control" id="total" type="text" placeholder="Total de la cotización" formControlName="total">
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Seleccione contratante</mat-label>
+                            <mat-select formControlName="idAsegurado">
+                                @for (asegurado of asegurados; track asegurado.idAsegurado) {
+                                    <mat-option [value]="asegurado.idAsegurado">{{ asegurado.nombre }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Seleccione vehículo</mat-label>
+                            <mat-select formControlName="idVehiculo">
+                                @for (modelo of vehiculos; track modelo.idModelo) {
+                                    <mat-option [value]="modelo.idVehiculo">{{modelo.num_serie + '\n' + modelo.modelo}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Seleccione aseguradora</mat-label>
+                            <mat-select formControlName="idAseguradora">
+                                @for (aseguradora of aseguradoras; track aseguradora.idAseguradora) {
+                                    <mat-option [value]="aseguradora.idAseguradora">{{aseguradora.nombre}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="prima_neta">Prima neta</label>
+                        <input class="form-control" id="prima_neta" type="text" placeholder="Prima neta de la cotización" formControlName="prima_neta">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="descuento">Descuento</label>
+                        <input class="form-control" id="descuento" type="text" placeholder="Descuento de la cotización" formControlName="descuento">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="prima_modulos">Prima módulos</label>
+                        <input class="form-control" id="prima_modulos" type="text" placeholder="Prima módulos de la cotización" formControlName="prima_modulos">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="recargo_fraccionamiento">Recargo fraccionamiento</label>
+                        <input class="form-control" id="recargo_fraccionamiento" type="text" placeholder="Recargo fraccionamiento de la cotización" formControlName="recargo_fraccionamiento">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="reduccion_autorizada">Reducción autorizada</label>
+                        <input class="form-control" id="reduccion_autorizada" type="text" placeholder="Reducción autorizada de la cotización" formControlName="reduccion_autorizada">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="derecho_poliza">Derecho póliza</label>
+                        <input class="form-control" id="derecho_poliza" type="text" placeholder="Derecho póliza de la cotización" formControlName="derecho_poliza">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="iva">IVA</label>
+                        <input class="form-control" id="iva" type="text" placeholder="IVA de la cotización" formControlName="iva">
+                    </div>
+                    <mat-form-field>
+                        <mat-label>Seleccione conceptos</mat-label>
+                        <mat-select formControlName="conceptos" multiple>
+                            @for (concepto of conceptos; track concepto.idConcepto) {
+                                @if(concepto.activo){
+                                    <mat-option [value]="concepto.idConcepto">{{concepto.descripcion}}</mat-option>
+                                }
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                      
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/cotizaciones">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(cotizacion){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+}
