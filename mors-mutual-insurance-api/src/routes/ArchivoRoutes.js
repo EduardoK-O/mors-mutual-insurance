@@ -24,7 +24,7 @@ const ArchivoControler = require('../controller/ArchivoController');
  *          required:
  *              - ruta
  *          example:
- *              ruta: ./src/resources/pdf/Cotizacion1714159553603.pdf          
+ *              ruta: ./src/resources/pdf/Cotizacion.pdf          
  */
 
 /**
