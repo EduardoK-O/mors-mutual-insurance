@@ -16,7 +16,7 @@ const createNewSeguro = async (data) => {
     const connection = await database.getConnection();
     const result = await connection.query(`INSERT INTO seguros 
     (fecha_contratacion, fecha_vigencia, idCotizacion) 
-    VALUES (${data.fecha_contratacion}, ${data.fecha_vigencia}, ${data.idMarca})`);
+    VALUES ('${data.fecha_contratacion}', '${data.fecha_vigencia}', ${data.idCotizacion})`);
     return result;
 }
 

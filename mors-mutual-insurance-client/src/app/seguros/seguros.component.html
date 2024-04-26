@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Modelos de autos</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           <button class="btn-agregar" routerLink="/add-seguro">Agregar un nuevo registro</button> 
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>id Contrato</th>
+                <th>Fecha de Contratación</th>
+                <th>Fecha de Vigencia</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(seguro of seguros; track seguro.idSeguro){
+                <tr>
+                    <td>{{ seguro.idCotizacion}}</td>
+                    <td>{{ seguro.fecha_contratacion }}</td>
+                    <td>{{ seguro.fecha_vigencia }}</td>
+                    <td>
+                        <button [routerLink]="['/edit-seguro', seguro.idSeguro]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                        <button (click)="deleteSeguro(seguro)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

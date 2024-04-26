@@ -1,0 +1,45 @@
+@if(form){
+    <div class="col-md-12 offset-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h2>Datos de la marca</h2>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="save()">
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha_contratacion">Contratación</label>
+                        <input class="form-control" id="fecha_contratacion" type="date" placeholder="Fecha de contratación del seguro" formControlName="fecha_contratacion">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="fecha_vigencia">Vigencia</label>
+                        <input class="form-control" id="fecha_vigencia" type="date" placeholder="Fecha de vigencia del seguro" formControlName="fecha_vigencia">
+                    </div>
+                    <div class="mb-3">
+                        <mat-form-field>
+                            <mat-label>Seleccione cotizacion</mat-label>
+                            <mat-select formControlName="idCotizacion">
+                                @for (cotizacion of cotizaciones; track cotizacion.idCotizacion) {
+                                    <mat-option [value]="cotizacion.idCotizacion">{{cotizacion.idCotizacion}}</mat-option>
+                              }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                
+                    <div class="text-center mx-auto">
+                        <button class="btn btn-danger" type="button" routerLink="/seguros">
+                            Cancelar
+                        </button>
+                        <button class="btn btn-primary">
+                            @if(seguro){
+                                Actualizar
+                            }
+                            @else{
+                                Agregar
+                            }
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
