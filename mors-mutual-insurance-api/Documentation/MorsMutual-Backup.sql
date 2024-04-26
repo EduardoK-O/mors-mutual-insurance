@@ -16,12 +16,25 @@
 
 
 -- Volcando estructura de base de datos para mors_mutual_insurance
-DROP DATABASE IF EXISTS `mors_mutual_insurance`;
 CREATE DATABASE IF NOT EXISTS `mors_mutual_insurance` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `mors_mutual_insurance`;
 
+-- Volcando estructura para tabla mors_mutual_insurance.archivos
+CREATE TABLE IF NOT EXISTS `archivos` (
+  `idArchivo` int(11) NOT NULL AUTO_INCREMENT,
+  `idAsegurado` int(11) DEFAULT NULL,
+  `idCotizacion` int(11) DEFAULT NULL,
+  `ruta` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`idArchivo`),
+  KEY `FK__asegurados` (`idAsegurado`),
+  KEY `FK__cotizaciones` (`idCotizacion`),
+  CONSTRAINT `FK__asegurados` FOREIGN KEY (`idAsegurado`) REFERENCES `asegurados` (`idAsegurado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK__cotizaciones` FOREIGN KEY (`idCotizacion`) REFERENCES `cotizaciones` (`idCotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- La exportación de datos fue deseleccionada.
+
 -- Volcando estructura para tabla mors_mutual_insurance.aseguradoras
-DROP TABLE IF EXISTS `aseguradoras`;
 CREATE TABLE IF NOT EXISTS `aseguradoras` (
   `idAseguradora` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
@@ -33,12 +46,11 @@ CREATE TABLE IF NOT EXISTS `aseguradoras` (
   `celular` varchar(45) DEFAULT NULL,
   `activo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`idAseguradora`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.asegurados
-DROP TABLE IF EXISTS `asegurados`;
 CREATE TABLE IF NOT EXISTS `asegurados` (
   `idAsegurado` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
@@ -46,37 +58,36 @@ CREATE TABLE IF NOT EXISTS `asegurados` (
   `direccion` varchar(45) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idAsegurado`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.conceptos
-DROP TABLE IF EXISTS `conceptos`;
 CREATE TABLE IF NOT EXISTS `conceptos` (
   `idConcepto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(45) DEFAULT NULL,
   `precio` decimal(10,0) DEFAULT NULL,
   `activo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`idConcepto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.conceptos_has_cotizaciones
-DROP TABLE IF EXISTS `conceptos_has_cotizaciones`;
 CREATE TABLE IF NOT EXISTS `conceptos_has_cotizaciones` (
   `idConcepto` int(11) NOT NULL,
   `idCotizacion` int(11) NOT NULL,
-  PRIMARY KEY (`idConcepto`,`idCotizacion`),
+  `idConceptoCotizacion` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`idConceptoCotizacion`) USING BTREE,
   KEY `fk_Conceptos_has_Cotizaciones_Cotizaciones1` (`idCotizacion`),
+  KEY `fk_Conceptos_has_Cotizaciones_Conceptos1` (`idConcepto`),
   CONSTRAINT `fk_Conceptos_has_Cotizaciones_Conceptos1` FOREIGN KEY (`idConcepto`) REFERENCES `conceptos` (`idConcepto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Conceptos_has_Cotizaciones_Cotizaciones1` FOREIGN KEY (`idCotizacion`) REFERENCES `cotizaciones` (`idCotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.cotizaciones
-DROP TABLE IF EXISTS `cotizaciones`;
 CREATE TABLE IF NOT EXISTS `cotizaciones` (
   `idCotizacion` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` varchar(45) DEFAULT NULL,
@@ -98,23 +109,21 @@ CREATE TABLE IF NOT EXISTS `cotizaciones` (
   CONSTRAINT `fk_Cotizaciones_Aseguradoras1` FOREIGN KEY (`idAseguradora`) REFERENCES `aseguradoras` (`idAseguradora`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Cotizaciones_Asegurados` FOREIGN KEY (`idAsegurado`) REFERENCES `asegurados` (`idAsegurado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Cotizaciones_Vehiculos1` FOREIGN KEY (`idVehiculo`) REFERENCES `vehiculos` (`idVehiculo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.marcas
-DROP TABLE IF EXISTS `marcas`;
 CREATE TABLE IF NOT EXISTS `marcas` (
   `idMarca` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   `activo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`idMarca`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.modelos
-DROP TABLE IF EXISTS `modelos`;
 CREATE TABLE IF NOT EXISTS `modelos` (
   `idModelo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
@@ -128,7 +137,6 @@ CREATE TABLE IF NOT EXISTS `modelos` (
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.seguros
-DROP TABLE IF EXISTS `seguros`;
 CREATE TABLE IF NOT EXISTS `seguros` (
   `idSeguro` int(11) NOT NULL AUTO_INCREMENT,
   `fecha_contratacion` date DEFAULT NULL,
@@ -142,7 +150,6 @@ CREATE TABLE IF NOT EXISTS `seguros` (
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.usuarios
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
@@ -159,7 +166,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.usuario_roles
-DROP TABLE IF EXISTS `usuario_roles`;
 CREATE TABLE IF NOT EXISTS `usuario_roles` (
   `idRol` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) DEFAULT NULL,
@@ -169,7 +175,6 @@ CREATE TABLE IF NOT EXISTS `usuario_roles` (
 -- La exportación de datos fue deseleccionada.
 
 -- Volcando estructura para tabla mors_mutual_insurance.vehiculos
-DROP TABLE IF EXISTS `vehiculos`;
 CREATE TABLE IF NOT EXISTS `vehiculos` (
   `idVehiculo` int(11) NOT NULL AUTO_INCREMENT,
   `anio` varchar(4) DEFAULT NULL,
@@ -178,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `vehiculos` (
   PRIMARY KEY (`idVehiculo`),
   KEY `fk_Vehiculos_Modelo1` (`idModelo`),
   CONSTRAINT `fk_Vehiculos_Modelo1` FOREIGN KEY (`idModelo`) REFERENCES `modelos` (`idModelo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 

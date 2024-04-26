@@ -17,7 +17,7 @@ const getConceptosByCotizacionId = async (idCotizacion) => {
 
 const createNewConceptoCotizacion = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`INSERT INTO conceptos_has_cotizaciones (idConcepto, idCotizacion) VALUES ('${data.idConcepto}', ${data.idCotizacion})`);
+    const result = await connection.query(`INSERT INTO conceptos_has_cotizaciones (idConcepto, idCotizacion) VALUES ('${data.idConcepto}', '${data.idCotizacion}')`);
     return result;
 }
 

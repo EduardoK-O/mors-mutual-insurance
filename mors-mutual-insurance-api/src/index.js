@@ -12,6 +12,7 @@ const ModeloRouter = require("./routes/ModeloRoutes");
 const VehiculoRouter = require("./routes/VehiculoRoutes");
 const SeguroRoutes = require('./routes/SeguroRoutes');
 const CotizacionRoutes = require('./routes/CotizacionRoutes');
+const ArchivosRoutes = require('./routes/ArchivoRoutes');
 
 //Swagger
 const swaggerUI = require('swagger-ui-express');
@@ -58,3 +59,4 @@ app.use("/api/modelos", ModeloRouter);
 app.use("/api/vehiculos", VehiculoRouter);
 app.use("/api/seguros", SeguroRoutes);
 app.use("/api/cotizaciones", CotizacionRoutes);
+app.use("/api/archivos", ArchivosRoutes);

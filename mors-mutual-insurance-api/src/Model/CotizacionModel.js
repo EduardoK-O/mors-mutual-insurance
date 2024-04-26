@@ -14,12 +14,6 @@ const getCotizacionById = async (idCotizacion) => {
 
 const createNewCotizacion = async (data) => {
     const connection = await database.getConnection();
-    console.log(`INSERT INTO cotizaciones 
-    (fecha, total, idAsegurado, idVehiculo, idAseguradora, prima_neta, descuento, prima_modulos,
-    recargo_fraccionamiento, reduccion_autorizada, derecho_poliza, iva) 
-    VALUES ('${data.fecha}', ${data.total}, ${data.idAsegurado}, ${data.idVehiculo}, ${data.idAseguradora},
-    ${data.prima_neta}, ${data.descuento}, ${data.prima_modulos}, ${data.recargo_fraccionamiento},
-    ${data.reduccion_autorizada}, ${data.derecho_poliza}, ${data.iva})`);
     const result = await connection.query(`INSERT INTO cotizaciones 
         (fecha, total, idAsegurado, idVehiculo, idAseguradora, prima_neta, descuento, prima_modulos,
         recargo_fraccionamiento, reduccion_autorizada, derecho_poliza, iva) 
