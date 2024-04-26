@@ -1,0 +1,109 @@
+<div class="container">
+    <!--<div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Cotizaciones generadas</b></h4>
+        </div>
+        <div class="col col-md-4 text-end d-flex flex-row-reverse p-5">
+            <form [formGroup]="form">
+                <button (click)="decrease">-</button>
+                <input (change)="valueChange" formControlName="dias" data-value type="text" value="1" />
+                <button (click)="increase" data-increase>+</button>
+            </form>
+        </div>
+        <div class="col col-md-4 text-end d-flex flex-row-reverse p-5">
+            
+            <button class="btn-agregar" routerLink="/add-seguro">Agregar un nuevo registro</button> 
+         </div>
+    </div>-->
+
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Resumen de cotizaciones</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+           
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Asegurado</th>
+                <th>Id Vehículo</th>
+                <th>Fecha</th>
+                <th>Conceptos</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(cotizacion of cotizaciones; track cotizacion.idCotizacion){
+                <tr>
+                    <td>{{ cotizacion.nombre_asegurado}}</td>
+                    <td>{{ cotizacion.idVehiculo }}</td>
+                    <td>{{ cotizacion.fecha }}</td>
+                    <td>
+                        <ul>
+                            @for(concepto of cotizacion.conceptos; track concepto.idConcepto){
+                                <li>{{ concepto.descripcion }}</li>
+                            }           
+                        </ul>    
+                    </td>
+                    <td>{{ cotizacion.total }}</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total</td>
+                <td>{{ currencyFormatter('USD', totalCotizaciones) }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="row">
+        <div class="col col-md-4 p-5">
+            <h4><b>Resumen de seguros</b></h4>
+        </div>
+        <div class="col col-md-8 text-end d-flex flex-row-reverse p-5">
+            
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>id Contrato</th>
+                <th>Fecha de Contratación</th>
+                <th>Fecha de Vigencia</th>
+                <th>Vigencia restante</th>
+                <th>Total (en contizacion)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(seguro of seguros; track seguro.idSeguro){
+                <tr>
+                    <td>{{ seguro.idCotizacion }}</td>
+                    <td>{{ seguro.fecha_contratacion }}</td>
+                    <td>{{ seguro.fecha_vigencia }}</td>
+                    @if (seguro.vence_en_dias > 0) {
+                        <td>{{ seguro.vence_en_dias + " días" }}</td>
+                    }
+                    @else {
+                        <td class="vencido">{{ seguro.vence_en_dias*-1 + " días vencido" }}</td>
+                    }
+                    <td>{{ seguro.monto_cotizacion }}</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"a>Total (con vencidos)</td>
+                <td>{{ currencyFormatter('USD', totalSegurosConVencidos) }}</td>
+            </tr>
+            <tr>
+                <td colspan="4"a>Total</td>
+                <td>{{ currencyFormatter('USD', totalSeguros) }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
