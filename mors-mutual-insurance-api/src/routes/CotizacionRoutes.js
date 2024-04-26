@@ -188,8 +188,8 @@ router.get("/", CotizacionController.getAllCotizaciones)
  */
 .put("/:idCotizacion", CotizacionController.updateCotizacion)
 
-//.post("/sendmail", CotizacionController.sendMail)
+.post("/sendmail", CotizacionController.sendMail)
 
-//.post ("/pdf", CotizacionController.cotizarPDF);
+.post ("/pdf", CotizacionController.cotizarPDF);
 
 module.exports = router;

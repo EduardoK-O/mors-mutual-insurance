@@ -3,6 +3,8 @@ const ConceptosCotizacionServ = require('../services/ConceptosCotizacionService'
 const ConceptosCotizacion = require('../Model/ConceptosCotizacion');
 const nodemailer = require('nodemailer');
 const PDFDocument = require('pdfkit-construct');
+const fs = require('fs');
+const { path } = require('pdfkit');
 
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -10,7 +12,7 @@ let transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PWD 
+        pass: process.env.SMTP_PWD
     },
     tls: {
         // do not fail on invalid certs
@@ -20,7 +22,7 @@ let transporter = nodemailer.createTransport({
 
 const getAllCotizaciones = async (req, res) => {
     const allCotizaciones = await CotizacionService.getAllCotizaciones();
-    await Promise.all(allCotizaciones.map(async (cotizacion) =>{
+    await Promise.all(allCotizaciones.map(async (cotizacion) => {
         const conceptos = await ConceptosCotizacion.getConceptosByCotizacionId(cotizacion.idCotizacion);
         cotizacion.conceptos = conceptos;
     }));
@@ -36,9 +38,9 @@ const getCotizacionById = async (req, res) => {
 
 const createNewCotizacion = async (req, res) => {
     const { body } = req;
-    if(!body.fecha || !body.total || !body.idAsegurado || !body.idVehiculo || !body.idAseguradora ||
-            !body.prima_neta || !body.descuento || !body.prima_modulos || !body.recargo_fraccionamiento
-            || !body.reduccion_autorizada || !body.derecho_poliza || !body.iva ){
+    if (!body.fecha || !body.total || !body.idAsegurado || !body.idVehiculo || !body.idAseguradora ||
+        !body.prima_neta || !body.descuento || !body.prima_modulos || !body.recargo_fraccionamiento
+        || !body.reduccion_autorizada || !body.derecho_poliza || !body.iva) {
         return;
     }
     const newCotizacion = {
@@ -56,14 +58,14 @@ const createNewCotizacion = async (req, res) => {
         iva: body.iva
     }
     const createdCotizacion = await CotizacionService.createNewCotizacion(newCotizacion);
-    for(concepto of body.conceptos){
-        data= {
+    for (concepto of body.conceptos) {
+        data = {
             idConcepto: concepto.idConcepto,
             idCotizacion: createdCotizacion.insertId
         }
         await ConceptosCotizacionServ.createNewConceptoCotizacion(data);
     }
-    res.status(201).send({status: "OK", data: createdCotizacion})
+    res.status(201).send({ status: "OK", data: createdCotizacion })
 }
 
 const updateCotizacion = async (req, res) => {
@@ -89,17 +91,20 @@ const newCotizacion = {
     iva: body.iva
 }
     const updatedCotizacion = await CotizacionService.updateCotizacion(newCotizacion);
-    res.status(200).send({status: "OK", data: updatedCotizacion});
+    res.status(200).send({ status: "OK", data: updatedCotizacion });
 }
 
 
 
-const sendMail = (req, res) => {
+const sendMail = (data) => {
     const mail = {
         from: process.env.SMTP_USER,
-        to: req.body.correo,
+        to: data.asegurado.correo,
         subject: "Prueba de correo Mors Mutual",
         text: "",
+        attachments:[{
+            path: data.attachment
+        }],
         html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTMML 1..0 Transitional//EN" "http://www-w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3..org/1999/xhtml">
         <head>
@@ -181,12 +186,15 @@ const sendMail = (req, res) => {
                     </tr>
                     <tr>
                         <td height="90">
-                            Estimado cliente:
+                            Estimado ${data.asegurado.nombre}:
                         </td>
                     </tr>
                     <tr>
-                        <td height="90" colspan="2" style="text-align: justify;">
-                            En breve le haremos llegar su cotización por este medio. Agradecemos su paciencia.
+                        <td height="90" colspan="2" style="text-align: center;">
+                            Hemos generado la cotización para su veh&iacute;culo <b>${data.vehiculo.marca} ${data.vehiculo.modelo}</b> del año 
+                            <b>${data.vehiculo.anio}</b>, por la cantidad de:<br>
+                            <h1> $ ${data.total} m.n.</h1><br> Si desea conocer más a detalle esta cotización,
+                            puede consultar el archivo pdf adjunto. 
                         </td>
                     </tr>
                     <tr>
@@ -213,57 +221,90 @@ const sendMail = (req, res) => {
         if (err) {
             console.error(err)
         } else {
-            res.status(200).send({status: "OK"});
+            res.status(200).send({ status: "OK" });
         }
     });
 }
 
 const cotizarPDF = (req, res) => {
-const { body } = req;
-const doc = new PDFDocument();
+    const { body } = req;
+    const doc = new PDFDocument();
 
-const filename = `Cotizacion${Date.now()}.pdf`;
+    const filename = `Cotizacion${Date.now()}.pdf`;
 
-const stream = res.writeHead(200, {
-    "Content-Type": "application/pdf",
-    "Content-Disposition": `attachment; filename=${filename}.pdf`
-})
+    const stream = res.writeHead(200, {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename=${filename}.pdf`
+    })
 
-doc.on('data', (data)=> stream.write(data));
-doc.on('end', ()=>stream.end());
+    doc.on('data', (data) => stream.write(data));
+    doc.on('end', () => stream.end());
 
-//doc.text(`nombre: ${body.nombre}, correo: ${body.correo}`);
-doc.setDocumentHeader({}, ()=>{
-    doc.image('src/resources/logo.png', 75, 55, {width: 30});
-    doc.text('Mors Mutual Insurance', {align: 'right', marginRight: 50});
-    doc.text("COTIZACION DE SEGURO",  {align:'center', height:'400'});
-});
+    doc.setDocumentHeader({height:'20'}, () => {
+        doc.image('src/resources/logo.png', 75, 55, { width: 30 });
+        doc.text('MORS MUTUAL INSURANCE', { align: 'right', marginRight: 50 });
+        doc.text("COTIZACION DE SEGURO", { align: 'center', height: '400' });
+        doc.text(`Vehiculo: ${body.vehiculo.marca} ${body.vehiculo.modelo}`, {align: 'left'});
+        doc.text(`Número de Serie: $${body.vehiculo.num_serie}`,{align:'left'});
+        doc.text(`Año: ${body.vehiculo.anio}`,{align:'left'});
 
-const data = [
-    {correo: body.correo, nombre: body.nombre}
-]
-doc.addTable(
-    [
-        {key: 'correo', label: '', align: 'left'},
-        {key: 'nombre', label: '', align: 'right'},
-    ], 
-    data, {
+    });
+
+    const data = body.conceptos;
+    doc.addTable(
+        [
+            { key: 'descripcion', label: '', align: 'right' },
+            { key: 'precio', label: '', align: 'left' },
+        ],
+        data, {
         border: null,
         width: "fill_body",
         striped: true,
         stripedColors: ["#f6f6f6", "#d6c4dd"],
-        cellsPadding: 10,
-        marginLeft: 45,
-        marginRight: 45,
+        cellsPadding: 5,
+        marginLeft: 5,
+        marginRight: 5,
         headAlign: 'center'
     });
-doc.render();
-doc.end();
-} 
+
+    doc.addTable(
+        [
+            { key: 'descripcion', label: '', align: 'center' },
+            { key: 'precio', label: '', align: 'left' },
+        ],
+        [
+            { descripcion: "PRIMA NETA", precio: `${body.prima_neta}`},
+            { descripcion: "DERECHO DE POLIZA", precio: `${body.derecho_poliza}`},
+            { descripcion: "PRIMA DE MÓDULOS", precio: `${body.prima_modulos}`},
+            { descripcion: "RECARGO FRACCIONAMIENTO", precio: `${body.recargo_fraccionamiento}`},
+            { descripcion: "DESCUENTO APLICADO", precio: `${body.descuento}` },
+            
+        ],
+        {
+            border: null,
+            width:"500",
+            striped: false,
+            stripedColors: ["#f6f6f6", "#d6c4dd"],
+            cellsPadding: 2,
+            marginLeft: 2,
+            marginRight: 2,
+            headAlign: 'left',
+        }
+    );
+    doc.render();
+    doc.text(`Total: ${body.total}`,{align:'right'});
+    const route = `./src/resources/pdf/${filename}`;
+    doc.pipe(fs.createWriteStream(route));
+    doc.end();
+    body.attachment = route;
+    sendMail(body);
+}
 
 module.exports = {
     getAllCotizaciones,
     getCotizacionById,
     createNewCotizacion,
-    updateCotizacion
+    updateCotizacion,
+    sendMail,
+    cotizarPDF
 }
