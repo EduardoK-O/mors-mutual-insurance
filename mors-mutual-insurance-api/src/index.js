@@ -18,6 +18,7 @@ const ArchivosRoutes = require('./routes/ArchivoRoutes');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 const { validateToken } = require('./controller/UsuarioController');
+const { type } = require('os');
 const swaggerSpec = {
     definition: {
         openapi: "3.0.0",
@@ -28,6 +29,20 @@ const swaggerSpec = {
         servers: [
             {
                 url: "http://localhost:4000"
+            }
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "jwt"
+                }
+            }
+        },
+        security: [
+            {
+                bearerAuth:[]
             }
         ]
     },

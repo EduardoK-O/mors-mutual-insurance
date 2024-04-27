@@ -27,7 +27,7 @@ const getArchivo = async (req, res) => {
     res.sendFile(path.join(__dirname, "../..", archivo.ruta));
 }
 
-const getAllArchivos = async () =>{
+const getAllArchivos = async (req, res) =>{
     const archivos = await ArchivoService.getAllArchivos();
     res.status(200).send(archivos);
 

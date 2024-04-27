@@ -75,8 +75,12 @@ function generateAccessToken(user){
 }
 
 function validateToken(req, res, next){
-    const accessToken = req.headers['authorization'];
-    if(!accessToken) res.send('Access denied');
+    let accessToken = req.headers['authorization'];
+    const withBearer = accessToken.split(' '); 
+    accessToken = withBearer[1];
+    
+    if(!accessToken) res.status(401).send('Access denied');
+
 
     jwt.verify(accessToken, process.env.SECRET, (err, user)=>{
         if(err){
