@@ -16,6 +16,7 @@ import { CotizacionFormComponent } from './cotizacion-form/cotizacion-form.compo
 import { SegurosComponent } from './seguros/seguros.component';
 import { SeguroFormComponent } from './seguro-form/seguro-form.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
     {path: 'marcas', component: MarcasComponent},
@@ -43,4 +44,5 @@ export const routes: Routes = [
     {path: 'add-seguro', component: SeguroFormComponent},
     {path: 'edit-seguro/:id', component: SeguroFormComponent},
     {path: 'reportes', component: ReportesComponent},
+    {path: 'login', component: LoginComponent},
 ];
