@@ -17,7 +17,7 @@ const createNewUser = async (newUser) => {
     const result = await connection.query(`INSERT INTO usuarios 
         (nombre, username, password, correo, idRol) 
         VALUES ('${newUser.nombre}', '${newUser.username}', '${newUser.password}', 
-        '${newUser,correo}', ${newUser.idRol})`);
+        '${newUser.correo}', ${newUser.idRol})`);
     return result;
 }
 
