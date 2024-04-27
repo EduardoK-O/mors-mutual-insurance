@@ -1,5 +1,6 @@
 const usuarioService = require("../services/UsuarioService");
 const jwt = require('jsonwebtoken');
+const {createHash} = require('crypto');
 
 const getAllUsers = async (req, res) => {
     const allUsers = await usuarioService.getAllUsers();
@@ -13,13 +14,13 @@ const getUserById = async (req, res) => {
 
 const createNewUser = async (req, res) => {
     const { body } = req;
-    if(!body.nombre || !body.username || !body.password || !body.correo || !body.idRol || !body.activo){
-        return;
+    if(!body.nombre || !body.username || !body.password || !body.correo || !body.idRol){
+        return res.status(400).send('BAD REQUEST');
     }
     const newUSer = {
         nombre: body.nombre,
         username: body.username,
-        password: body.password,
+        password: createHash('sha256').update(body.password).digest('hex'),
         correo: body.correo,
         idRol: body.idRol,
         activo: body.activo
@@ -31,13 +32,13 @@ const createNewUser = async (req, res) => {
 const updateUser = async (req, res) => {
     const { body } = req;
     if(!body.nombre || !body.username || !body.password || !body.correo || !body.idRol || !body.activo){
-        return;
+        return res.status(400).send('BAD REQUEST');
     }
     const newUSer = {
         idUsuario: req.params.userId,
         nombre: body.nombre,
         username: body.username,
-        password: body.password,
+        password: createHash('sha256').update(body.password).digest('hex'),
         correo: body.correo,
         idRol: body.idRol,
         activo: body.activo
@@ -61,7 +62,6 @@ const login = async (req, res) => {
         password: body.password
     }
     const user = (await usuarioService.login(data))[0];
-    console.log(user);
     if (!user) {
         return res.status(404).send("USER NOT FOUND");
     }
@@ -71,7 +71,6 @@ const login = async (req, res) => {
 }
 
 function generateAccessToken(user){
-    console.log(process.env.SECRET);
     return jwt.sign({user}, process.env.SECRET, {expiresIn: '30m'});
 }
 

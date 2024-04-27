@@ -14,9 +14,7 @@ const getAllArchivos = async () => {
 
 const getArchivoByIdCotizacion = async (idCotizacion) => {
     const connection = await database.getConnection();
-    console.log(`SELECT * FROM archivos WHERE idCotizacion = ${idCotizacion}`);
     const result = await connection.query(`SELECT * FROM archivos WHERE idCotizacion = ${idCotizacion}`);
-    console.log(result);
     return result;
 }
 

@@ -12,7 +12,6 @@ const getAllArchivos = async () => {
 
 const getArchivoByIdCotizacion = async (idCotizacion) => {
     const archivo = await ArchivoModel.getArchivoByIdCotizacion(idCotizacion);
-    console.log(archivo);
     return archivo;
 }
 
