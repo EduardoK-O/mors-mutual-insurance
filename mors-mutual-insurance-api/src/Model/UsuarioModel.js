@@ -38,11 +38,19 @@ const deleteUser = async (userId) => {
     return result;
 }
 
+const login = async (data) => {
+    const connection = await database.getConnection();
+    const result = await connection.query(`SELECT username FROM usuarios 
+    WHERE username = '${data.username}' AND password = '${data.password}'`);
+    return result;
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }
 

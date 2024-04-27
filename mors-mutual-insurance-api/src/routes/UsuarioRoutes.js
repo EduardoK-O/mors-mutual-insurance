@@ -60,7 +60,7 @@ const usuarioController = require("../controller/UsuarioController");
  *                      items:
  *                          $ref: '#/components/schemas/usuarios'
  */
-router.get("/", usuarioController.getAllUsers)
+router.get("/", usuarioController.validateToken, usuarioController.getAllUsers)
 
 /**
  * @swagger
@@ -79,7 +79,7 @@ router.get("/", usuarioController.getAllUsers)
  *          200:
  *              description: Usuario creado!
  */
-.post("/", usuarioController.createNewUser)
+.post("/", usuarioController.validateToken, usuarioController.createNewUser)
 
 /**
  * @swagger
@@ -104,7 +104,7 @@ router.get("/", usuarioController.getAllUsers)
  *                      items:
  *                          $ref: '#/components/schemas/usuarios'
  */
-.get("/:userId", usuarioController.getUserById)
+.get("/:userId", usuarioController.validateToken, usuarioController.getUserById)
 
 
 /**
@@ -131,7 +131,7 @@ router.get("/", usuarioController.getAllUsers)
  *          200:
  *              description: Usuario actualizado!
  */
-.put("/:userId", usuarioController.updateUser)
+.put("/:userId", usuarioController.validateToken, usuarioController.updateUser)
 
 /**
  * @swagger
@@ -150,6 +150,29 @@ router.get("/", usuarioController.getAllUsers)
  *      200:
  *          description: usuario eliminado!  
  */
-.delete("/userId", usuarioController.deleteUSer);
+.delete("/userId", usuarioController.validateToken, usuarioController.deleteUSer)
+
+/**
+ * @swagger
+ * /api/usuarios/login:
+ *  post:
+ *      summary: inicia sesion devuelve el token
+ *      tags: [Usuarios]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      properties:
+ *                          username:
+ *                              type: string
+ *                          password:
+ *                              type: string
+ *      responses:
+ *          200:
+ *              description: usuario autenticado
+ */
+.post("/login", usuarioController.login);
 
 module.exports = router;

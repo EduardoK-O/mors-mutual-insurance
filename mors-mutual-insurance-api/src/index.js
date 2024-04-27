@@ -17,6 +17,7 @@ const ArchivosRoutes = require('./routes/ArchivoRoutes');
 //Swagger
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
+const { validateToken } = require('./controller/UsuarioController');
 const swaggerSpec = {
     definition: {
         openapi: "3.0.0",
@@ -49,14 +50,14 @@ app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)))
 app.use(cors());
 
 //rutas
-app.use("/api/usuario-roles", usuarioRolesRouter);
+app.use("/api/usuario-roles", validateToken, usuarioRolesRouter);
 app.use("/api/usuarios", usuarioRouter);
-app.use("/api/aseguradoras", aseguradoraRouter);
-app.use("/api/conceptos", conceptoRouter);
-app.use("/api/asegurados", aseguradoRouter);
-app.use("/api/marcas", marcaRouter);
-app.use("/api/modelos", ModeloRouter);
-app.use("/api/vehiculos", VehiculoRouter);
-app.use("/api/seguros", SeguroRoutes);
-app.use("/api/cotizaciones", CotizacionRoutes);
-app.use("/api/archivos", ArchivosRoutes);
+app.use("/api/aseguradoras", validateToken, aseguradoraRouter);
+app.use("/api/conceptos", validateToken, conceptoRouter);
+app.use("/api/asegurados", validateToken, aseguradoRouter);
+app.use("/api/marcas", validateToken, marcaRouter);
+app.use("/api/modelos", validateToken, ModeloRouter);
+app.use("/api/vehiculos", validateToken, VehiculoRouter);
+app.use("/api/seguros", validateToken, SeguroRoutes);
+app.use("/api/cotizaciones",validateToken, CotizacionRoutes);
+app.use("/api/archivos", validateToken, ArchivosRoutes);

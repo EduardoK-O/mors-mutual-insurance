@@ -25,10 +25,16 @@ const deleteUser = async (userId) => {
     return deletedUser;
 }
 
+const login = async (data) =>{
+    const user = await usuarioMod.login(data);
+    return user;
+}
+
 module.exports = {
     getAllUsers,
     getUserById,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    login
 }
