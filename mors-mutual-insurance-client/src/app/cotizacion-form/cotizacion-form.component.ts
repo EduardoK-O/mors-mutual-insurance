@@ -14,6 +14,7 @@ import { VehiculosService } from '../services/vehiculos.service';
 import { AseguradosService } from '../services/asegurados.service';
 import { AseguradorasService } from '../services/aseguradoras.service';
 import { ConceptosService } from '../services/conceptos.service';
+import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class CotizacionFormComponent {
   asegurados: Asegurado[] = [];
   aseguradoras: Aseguradora[] = [];
   conceptos: Concepto[] = [];
+  concepto?: Concepto;
 
   @Input('id') idCotizacion!: string;
 
@@ -79,22 +81,28 @@ export class CotizacionFormComponent {
         derecho_poliza:['', [Validators.required]],
         iva:['', [Validators.required]],
         conceptos:['', [Validators.required]],
-        idCotizacion:['', [Validators.required]]
+        //idCotizacion:['', [Validators.required]]
       })
     }
   }
 
   save(){
     const modeloForm = this.form!.value;
-    let conceptosSeleccionados2: any[] = [];
+    let conceptosSeleccionados: any[] = [];
 
-    modeloForm.conceptos.forEach((concepto: number) => {
-      const data = {idConcepto: concepto}
-      conceptosSeleccionados2.push(data);
+    /*modeloForm.conceptos.forEach((idConcepto: number) => { //los ids asignados al multi select
+      this.conceptosService.get(idConcepto.toString()).subscribe(concepto => { //hacemos getbyid a cada uno
+        const data = concepto[0] //incesesario pero por cualquier cosa lo guardamos en data
+        conceptosSeleccionados.push(data); //pusheamos data al array de conceptos seleccionados
+      });
+      
     });
 
-    modeloForm.conceptos = conceptosSeleccionados2;
+    modeloForm.conceptos = conceptosSeleccionados; //asignamos al fomulario los conceptos
 
+    console.log(modeloForm);
+
+    //Aquí llamamos a los servicios que se conectan a la API
     if(this.cotizacion){
       this.cotizacionesService.put(this.cotizacion.idCotizacion, modeloForm).subscribe(() =>{
         this.router.navigate(['/cotizaciones']);
@@ -104,7 +112,42 @@ export class CotizacionFormComponent {
         this.cotizacionesService.create(modeloForm).subscribe(() => {
         this.router.navigate(['/cotizaciones']);
       })
-    }
+    }*/
+
+    // Creamos un array de observables para las llamadas get
+    const observables = modeloForm.conceptos.map((idConcepto: number) => {
+      return this.conceptosService.get(idConcepto.toString());
+    });
+
+  // Usamos forkJoin para esperar a que todas las llamadas se completen
+    forkJoin(observables).subscribe((conceptos: any) => {
+      // Una vez que todas las llamadas están completas, agregamos los conceptos al array conceptosSeleccionados
+      conceptos.forEach((concepto: any) => {
+        conceptosSeleccionados.push(concepto[0]);
+      });
+
+        // Ahora podemos asignar los conceptos al formulario
+      modeloForm.conceptos = conceptosSeleccionados;
+
+      console.log(modeloForm);
+
+        // Llamamos a los servicios que se conectan a la API
+      if (this.cotizacion) {
+          this.cotizacionesService.put(this.cotizacion.idCotizacion, modeloForm).subscribe(() => {
+            this.router.navigate(['/cotizaciones']);
+          });
+          
+      }
+      else {
+        this.cotizacionesService.create(modeloForm).subscribe(() => {
+          this.router.navigate(['/cotizaciones']);
+        }); 
+      }
+    });
+
+    setTimeout(() => {
+      this.router.navigate(['/cotizaciones']);
+    }, 3000);
   }
 
   get(){

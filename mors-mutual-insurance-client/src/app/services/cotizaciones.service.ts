@@ -14,6 +14,9 @@ export class CotizacionesService {
   }
 
   create(cotizacion: any){
+    console.log("esto ya es dentro del servicio:");
+    console.log(cotizacion);
+    
     return this.http.post<Cotizacion>(this.ruta, cotizacion);
   }
 
