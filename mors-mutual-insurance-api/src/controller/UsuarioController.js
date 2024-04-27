@@ -59,7 +59,7 @@ const login = async (req, res) => {
     }
     const data = {
         username: body.username,
-        password: body.password
+        password: createHash('sha256').update(body.password).digest('hex'),
     }
     const user = (await usuarioService.login(data))[0];
     if (!user) {
