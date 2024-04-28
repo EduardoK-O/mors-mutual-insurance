@@ -35,9 +35,9 @@ export class UsuariosComponent {
     });
   }
 
-  deleteUsuario(vehiculo: Usuario){
-    //vehiculo.activo = 0;
-    this.usuariosService.put(vehiculo.idUsuario, vehiculo).subscribe(() => {
+  deleteUsuario(usuario: Usuario){
+    //usuario.activo = 0;
+    this.usuariosService.delete(usuario.idUsuario).subscribe(() => {
       alert("Ha sido eliminado");
       this.listAll();
     });

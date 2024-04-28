@@ -150,7 +150,7 @@ router.get("/", usuarioController.validateToken, usuarioController.getAllUsers)
  *      200:
  *          description: usuario eliminado!  
  */
-.delete("/userId", usuarioController.validateToken, usuarioController.deleteUSer)
+.delete("/:userId", usuarioController.validateToken, usuarioController.deleteUSer)
 
 /**
  * @swagger

@@ -1,6 +1,7 @@
 const usuarioService = require("../services/UsuarioService");
 const jwt = require('jsonwebtoken');
 const {createHash} = require('crypto');
+const { log } = require("console");
 
 const getAllUsers = async (req, res) => {
     const allUsers = await usuarioService.getAllUsers();
@@ -31,7 +32,7 @@ const createNewUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     const { body } = req;
-    if(!body.nombre || !body.username || !body.password || !body.correo || !body.idRol || !body.activo){
+    if(!body.nombre || !body.username || !body.password || !body.correo || !body.idRol){
         return res.status(400).send('BAD REQUEST');
     }
     const newUSer = {
@@ -40,14 +41,14 @@ const updateUser = async (req, res) => {
         username: body.username,
         password: createHash('sha256').update(body.password).digest('hex'),
         correo: body.correo,
-        idRol: body.idRol,
-        activo: body.activo
+        idRol: body.idRol
     }
     const createdUser = await usuarioService.updateUser(newUSer);
     res.status(200).send({status: "OK", data: createdUser});
 }
 
 const deleteUSer = async (req, res) => {
+    console.log("entró la wea");
     const deletedUser = await usuarioService.deleteUser(req.params.userId);
     return deletedUser;
 }

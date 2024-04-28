@@ -6,6 +6,7 @@ import { Usuario } from '../model/usuario.interface';
 import { sha256, sha224 } from 'js-sha256';
 import { CookieService } from 'ngx-cookie-service';
 import { data } from 'jquery';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   private router = inject(Router);
   private usuariosService = inject(UsuariosService);
   private cookie = inject(CookieService);
+  private _refresh$ = new Subject<void>();
 
   //parametros de la ruta
   @Input('id') idUsuario!: string;
@@ -39,12 +41,10 @@ export class LoginComponent {
     //usuarioForm.password = sha256(usuarioForm.password);
     //sha256('The quick brown fox jumps over the lazy dog.');
     //console.log(usuarioForm);
-    
-    
-      this.usuariosService.login(usuarioForm).subscribe((data:any) => {
-        this.cookie.set('token', data.token);
-        this.cookie.set('userRol', data.usuario.idRol);
-        this.router.navigate(['/reportes']);
-      })
+    {this.usuariosService.login(usuarioForm).subscribe((data:any) => {
+      this.cookie.set('token', data.token);
+      this.cookie.set('userRol', data.usuario.idRol);
+      this.router.navigate(['/reportes']);
+    });}
   }
 }

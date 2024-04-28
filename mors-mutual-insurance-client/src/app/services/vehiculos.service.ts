@@ -16,8 +16,6 @@ export class VehiculosService {
   })
 
   list(){
-    console.log(this.cookie.get('token'));
-    
     return this.http.get<Vehiculo[]>('http://localhost:4000/api/vehiculos', {headers: this.headers});
   }
 

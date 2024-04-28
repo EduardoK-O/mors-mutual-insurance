@@ -21,6 +21,7 @@ const updateUser = async (newUser) => {
 }
 
 const deleteUser = async (userId) => {
+    console.log("entró al service");
     const deletedUser = await usuarioMod.deleteUser(userId);
     return deletedUser;
 }

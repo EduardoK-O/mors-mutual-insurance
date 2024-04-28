@@ -20,16 +20,18 @@
         </thead>
         <tbody>
             @for(usuario of usuarios; track usuario.idUsuario){
-                <tr>
-                    <td>{{ usuario.nombre }}</td>
-                    <td>{{ usuario.username }}</td>
-                    <td>{{ usuario.correo }}</td>
-                    <td>{{ usuario.idRol }}</td>
-                    <td>
-                        <button [routerLink]="['/edit-usuario', usuario.idUsuario]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
-                        <button (click)="deleteUsuario(usuario)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
-                    </td>
-                </tr>
+                @if (usuario.activo) {
+                    <tr>
+                        <td>{{ usuario.nombre }}</td>
+                        <td>{{ usuario.username }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.idRol }}</td>
+                        <td>
+                            <button [routerLink]="['/edit-usuario', usuario.idUsuario]" class="btn btn-primary"><fa-icon [icon]="faPenToSquare"></fa-icon></button>
+                            <button (click)="deleteUsuario(usuario)" class="btn btn-danger"><fa-icon [icon]="faTrash"></fa-icon></button>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
