@@ -115,6 +115,25 @@ router.get("/", ModeloController.getAllModelos)
  *          200:
  *              description: modelo actualizado!
  */
-.put("/:idModelo", ModeloController.updateModelo);
+.put("/:idModelo", ModeloController.updateModelo)
+
+/**
+ * @swagger
+ * /api/usuarios/{id}:
+ *  delete:
+ *    summary: elimina un usuario por id (solo actualiza el estado de activo a 0)
+ *    tags: [Usuarios]
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *          required: true
+ *          description: el id del usuario
+ *    responses:
+ *      200:
+ *          description: usuario eliminado!  
+ */
+.delete("/:idModelo", ModeloController.deleteModelo);
 
 module.exports = router;

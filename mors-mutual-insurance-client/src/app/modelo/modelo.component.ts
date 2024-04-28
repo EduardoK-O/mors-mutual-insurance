@@ -35,8 +35,8 @@ export class ModeloComponent {
   }
 
   deleteModelo(modelo: Modelo){
-    modelo.activo = 0;
-    this.modeloService.put(modelo.idModelo, modelo).subscribe(() => {
+    //modelo.activo = 0;
+    this.modeloService.delete(modelo.idModelo).subscribe(() => {
       alert("Ha sido eliminado");
       this.listAll();
     });

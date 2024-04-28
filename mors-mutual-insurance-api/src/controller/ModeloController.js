@@ -37,9 +37,15 @@ const updateModelo = async (req, res) => {
     res.status(200).send({status: "OK", data: updatedModelo});
 }
 
+const deleteModelo = async (req, res) => {
+    const deleteModelo = await ModeloService.deleteModelo(req.params.idModelo);
+    res.status(200).send({status: "OK", data: deleteModelo});
+}
+
 module.exports = {
     getAllModelos,
     getModeloById,
     createNewModelo,
-    updateModelo
+    updateModelo,
+    deleteModelo
 }

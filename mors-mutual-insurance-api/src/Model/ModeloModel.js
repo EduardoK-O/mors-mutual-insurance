@@ -24,9 +24,17 @@ const updateModelo = async (data) => {
     return result;
 }
 
+const deleteModelo = async (idModelo) => {
+    const connection = await database.getConnection();
+    const result = await connection.query(`UPDATE modelos SET activo = 0
+        WHERE idModelo = ${idModelo}`);
+    return result;
+}
+
 module.exports = {
     getAllModelos,
     getModeloById,
     createNewModelo,
-    updateModelo
+    updateModelo,
+    deleteModelo
 }

@@ -20,9 +20,15 @@ const updateModelo = async (Modelo) => {
     return updatedModelo;
 }
 
+const deleteModelo = async (idModelo) => {
+    const deletedModelo = await ModeloModel.deleteModelo(idModelo);
+    return deletedModelo;
+}
+
 module.exports = {
     getAllModelos,
     getModeloById,
     createNewModelo,
-    updateModelo
+    updateModelo,
+    deleteModelo
 }
