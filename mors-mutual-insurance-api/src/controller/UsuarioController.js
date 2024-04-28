@@ -50,7 +50,7 @@ const updateUser = async (req, res) => {
 const deleteUSer = async (req, res) => {
     console.log("entró la wea");
     const deletedUser = await usuarioService.deleteUser(req.params.userId);
-    return deletedUser;
+    res.status(200).send({status: "OK", data: deleteUSer});
 }
 
 const login = async (req, res) => {

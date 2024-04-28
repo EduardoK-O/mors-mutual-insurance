@@ -34,7 +34,7 @@ const updateUser = async (data) => {
 const deleteUser = async (userId) => {
     console.log(userId);
     const connection = await database.getConnection();
-    const result = await connection.query(`UPDATE usuarios (activo) VALUES (0)
+    const result = await connection.query(`UPDATE usuarios SET activo = 0
         WHERE idUsuario = ${userId}`);
     return result;
 }
