@@ -1,19 +1,19 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { VehiculosService } from '../services/vehiculos.service';
+import { UsuariosService } from '../services/usuarios.service';
 import { RouterLink } from '@angular/router';
-import { Vehiculo } from '../model/vehiculo.interface';
+import { Usuario } from '../model/usuario.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPenToSquare, faTrash, faCheckCircle, faTimes, faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-vehiculos',
+  selector: 'app-usuarios',
   standalone: true,
   imports: [RouterLink, FontAwesomeModule],
-  templateUrl: './vehiculos.component.html',
-  styleUrl: './vehiculos.component.css'
+  templateUrl: './usuarios.component.html',
+  styleUrl: './usuarios.component.css'
 })
-export class VehiculosComponent {
-  private vehiculoService = inject(VehiculosService);
+export class UsuariosComponent {
+  private usuariosService = inject(UsuariosService);
 
   faPenToSquare = faPenToSquare;
   faTrash = faTrash;
@@ -21,23 +21,23 @@ export class VehiculosComponent {
   times = faTimes;
   circleX = faCircleXmark;
 
-  vehiculos: Vehiculo[] = [];
+  usuarios: Usuario[] = [];
 
   ngOnInit(): void {
     this.listAll();
-    //console.log("vehiculos funciona");
+    //console.log("usuarios funciona");
   }
 
   listAll(){
-    this.vehiculoService.list().subscribe(vehiculos =>{
-      console.log(vehiculos);
-      this.vehiculos = vehiculos;
+    this.usuariosService.list().subscribe(usuarios =>{
+      console.log(usuarios);
+      this.usuarios = usuarios;
     });
   }
 
-  deleteVehiculo(vehiculo: Vehiculo){
+  deleteUsuario(vehiculo: Usuario){
     //vehiculo.activo = 0;
-    this.vehiculoService.put(vehiculo.idVehiculo, vehiculo).subscribe(() => {
+    this.usuariosService.put(vehiculo.idUsuario, vehiculo).subscribe(() => {
       alert("Ha sido eliminado");
       this.listAll();
     });

@@ -19,6 +19,9 @@
             <li><a href="">Registro de informacion</a>
                 <ul class="dropdown">
                     <li><a routerLink="/seguros">Seguros</a></li>
+                    @if (usuario == '4') {
+                        <li><a routerLink="/usuarios">Usuarios</a></li>
+                    }
                 </ul>
             </li>
             <li><a routerLink="/reportes">Reportes</a></li>
@@ -28,6 +31,12 @@
                     <li><a routerLink="/conceptos">Conceptos</a></li>
                 </ul>
             </li>
+            @if (!usuario) {
+                <li><a routerLink="/login">Login</a></li>
+            }
+            @else {
+                <li><a routerLink="/login">Change user</a></li>
+            }
          </ul>
     </nav>
 

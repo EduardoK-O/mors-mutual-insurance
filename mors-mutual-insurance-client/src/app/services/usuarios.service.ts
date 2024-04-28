@@ -13,7 +13,7 @@ export class UsuariosService {
   private ruta = 'http://localhost:4000/api/usuarios';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `${this.cookie.get('token')}`
+    'Authorization': `Bearer ${this.cookie.get('token')}`
   });
 
   list(){
@@ -21,23 +21,23 @@ export class UsuariosService {
   }
 
   create(usuario: any){
-    return this.http.post<Usuario>(this.ruta, usuario);
+    return this.http.post<Usuario>(this.ruta, usuario , {headers: this.headers});
   }
 
   get(idUsuario: string){
-    return this.http.get<Usuario[]>(this.ruta + '/' + idUsuario);
+    return this.http.get<Usuario[]>(this.ruta + '/' + idUsuario , {headers: this.headers});
   }
 
   put(idUsuario: number, usuario:any){
     //console.log(usuario);
-    return this.http.put(this.ruta + '/' + idUsuario, usuario);
+    return this.http.put(this.ruta + '/' + idUsuario, usuario , {headers: this.headers});
   }
 
   delete(idUsuario: number){
-    return this.http.delete(this.ruta + '/' + idUsuario);
+    return this.http.delete(this.ruta + '/' + idUsuario, {headers: this.headers});
   }
 
   login(usuario: Usuario){
-    return this.http.post(this.ruta + '/login', usuario);
+    return this.http.post(this.ruta + '/login', usuario , {headers: this.headers});
   }
 }

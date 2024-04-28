@@ -43,7 +43,7 @@ export class LoginComponent {
     
       this.usuariosService.login(usuarioForm).subscribe((data:any) => {
         this.cookie.set('token', data.token);
-        this.cookie.set('user', data.usuario);
+        this.cookie.set('userRol', data.usuario.idRol);
         this.router.navigate(['/reportes']);
       })
   }

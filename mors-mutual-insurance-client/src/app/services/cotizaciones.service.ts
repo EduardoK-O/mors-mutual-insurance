@@ -12,7 +12,7 @@ export class CotizacionesService {
   private cookie = inject(CookieService);
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': `${this.cookie.get('token')}`
+    'Authorization': `Bearer ${this.cookie.get('token')}`
   })
 
   list(){

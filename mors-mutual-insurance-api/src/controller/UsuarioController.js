@@ -67,7 +67,7 @@ const login = async (req, res) => {
     }
 
     const accessToken = generateAccessToken(user);
-    res.header('authorization', accessToken).json({message: "Usuario autenticado", token: accessToken});
+    res.header('authorization', accessToken).json({message: "Usuario autenticado", token: accessToken, usuario:user});
 }
 
 function generateAccessToken(user){

@@ -40,7 +40,7 @@ const deleteUser = async (userId) => {
 
 const login = async (data) => {
     const connection = await database.getConnection();
-    const result = await connection.query(`SELECT username FROM usuarios 
+    const result = await connection.query(`SELECT username, idRol FROM usuarios 
     WHERE username = '${data.username}' AND password = '${data.password}'`);
     return result;
 }
